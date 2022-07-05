@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 public class BookDTO {
     private String author;
     private String title;
+    private Float price;
 }

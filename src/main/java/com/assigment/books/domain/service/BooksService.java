@@ -46,7 +46,7 @@ public class BooksService {
 
     public ResponseEntity<?> createBook(BookDTO bookDTO) {
         log.info("Creating new book: "+ bookDTO.getTitle());
-        Book book = new Book(bookDTO.getAuthor(), bookDTO.getTitle(), UUID.randomUUID().toString());
+        Book book = new Book(bookDTO.getAuthor(), bookDTO.getTitle(), UUID.randomUUID().toString(), bookDTO.getPrice());
         Book newBook = booksRepository.save(book);
         return new ResponseEntity<>(newBook, HttpStatus.CREATED);
     }

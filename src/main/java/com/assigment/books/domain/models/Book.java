@@ -12,13 +12,15 @@ public class Book {
     private String id;
     private String author;
     private String title;
+    private Float price;
 
     @Indexed(unique = true)
     private String bookUUID;
 
-    public Book(String author, String title, String bookUUID) {
+    public Book(String author, String title, String bookUUID, Float price) {
         this.author = author;
         this.title = title;
         this.bookUUID = bookUUID;
+        this.price = price;
     }
 }

@@ -30,7 +30,7 @@ public class BooksController {
 
     @PostMapping("")
     public ResponseEntity<?> addOne(@RequestHeader("X-auth-user-roles") String userRoles, @RequestBody BookDTO book) {
-        if(userRoles.contains("ROLE_BASdIC_USER")){
+        if(userRoles.contains("ROLE_ADMIN")){
             return booksService.createBook(book);
         }else{
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
