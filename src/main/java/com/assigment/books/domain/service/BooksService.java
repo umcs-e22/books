@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,6 +39,18 @@ public class BooksService {
                     log.info("Deleted: "+ uuid + " from books repository");
                     booksRepository.delete(p)
                     ;}, ()->{log.info("Not deleted: "+uuid+" because do not exist already.");});
+
+        return ResponseEntity.ok("");
+    }
+
+    public ResponseEntity<?> updateOne(String uuid, BookDTO book){
+        booksRepository.findByBookUUID(uuid)
+                .ifPresentOrElse(p-> {
+                   p.setAuthor(book.getAuthor());
+                   p.setPrice(book.getPrice());
+                   p.setTitle(book.getTitle());
+                    booksRepository.save(p)
+                    ;}, ()->{log.info("Not update: "+uuid+" because do not exist already.");});
 
         return ResponseEntity.ok("");
     }

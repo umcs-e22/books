@@ -38,8 +38,21 @@ public class BooksController {
 
     }
 
+    @PutMapping("/{uuid}")
+    public ResponseEntity<?> updateOne(@RequestHeader("X-auth-user-roles") String userRoles, @RequestBody BookDTO book, @PathVariable String uuid){
+        if(userRoles.contains("ROLE_ADMIN")){
+            return booksService.updateOne(uuid, book);
+        }else{
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+    }
+
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<?> removeOne(@PathVariable String uuid){
-        return booksService.removeOne(uuid);
+    public ResponseEntity<?> removeOne(@RequestHeader("X-auth-user-roles") String userRoles, @PathVariable String uuid){
+        if(userRoles.contains("ROLE_ADMIN")){
+            return booksService.removeOne(uuid);
+        }else{
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
     }
 }
